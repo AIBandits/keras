@@ -921,6 +921,7 @@ class DirectoryIterator(Iterator):
 
         # second, build an index of the images in the different class subfolders
         self.filenames = []
+        self.indexes = []
         self.classes = np.zeros((self.samples,), dtype='int32')
         i = 0
         for subdir in classes:
@@ -962,6 +963,7 @@ class DirectoryIterator(Iterator):
             x = self.image_data_generator.random_transform(x)
             x = self.image_data_generator.standardize(x)
             batch_x[i] = x
+            self.indexes.append(j)
         # optionally save augmented images to disk for debugging purposes
         if self.save_to_dir:
             for i in range(current_batch_size):
